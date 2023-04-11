@@ -7,7 +7,8 @@
             bool programOn = true;
             string userInput;
 
-            Map map = new Map();
+            Map map = new Map(40,2);
+            
             while (programOn)
             {
                 Console.Clear();
@@ -24,10 +25,17 @@
     }
     class Map
     {
-        int mapFactor = 40;
-        int borderRadius = 2;
-        int[,] coordinates = new int[80, 80];
+        int mapFactor;
+        int innerBorderRadius;
+        int[,] coordinates;
         Random rand = new Random();
+
+        public Map(int mapFactor, int innerBorderRadius)
+        {
+            this.mapFactor = mapFactor;
+            this.innerBorderRadius = innerBorderRadius;
+            this.coordinates = new int[mapFactor, mapFactor];
+        }
 
         public void CreateMap()
         {
@@ -43,11 +51,11 @@
 
         public void PrintMap()
         {
-            for (int i = 0; i <= mapFactor; i++)
+            for (int i = 0; i < mapFactor; i++)
             {
-                for (int j = 0; j <= mapFactor; j++)
+                for (int j = 0; j < mapFactor; j++)
                 {
-                    if (j == 0 || j == mapFactor)
+                    if (j == 0 || j == mapFactor -1)
                     {
                         Console.Write("|");
                     }
@@ -55,7 +63,7 @@
                     {
                         Console.Write("'");
                     }
-                    else if (i == mapFactor)
+                    else if (i == mapFactor -1)
                     {
                         Console.Write(".");
                     }
@@ -81,12 +89,12 @@
             bool formBottom = false;
             bool insideBorders = false;
 
-            for (int i = 0; i <= mapFactor; i++)
+            for (int i = 0; i < mapFactor; i++)
             {
-                for (int j = 0; j <= mapFactor; j++)
+                for (int j = 0; j < mapFactor; j++)
                 {
-                    if (i < mapFactor - borderRadius && j < mapFactor - borderRadius &&
-                        i > borderRadius && j > borderRadius)
+                    if (i < mapFactor - innerBorderRadius && j < mapFactor - innerBorderRadius &&
+                        i > innerBorderRadius && j > innerBorderRadius)
                     {
                         insideBorders = true;
                     }
